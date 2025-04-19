@@ -10,6 +10,6 @@ function calcUptime() {
 
 export async function GET() {
     return NextResponse.json({
-        message: `API was been operational for ${calcUptime()}`,
+        message: `API has been operational for ${calcUptime()}`,
     })
 }
