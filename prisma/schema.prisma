@@ -22,7 +22,17 @@ model User {
   autoGGMessage String?
   createdAt     DateTime  @default(now())
   settings      Settings?
+  sessions      Session[]
   stats         Stat[]
+}
+
+model Session {
+  id        String    @id @default(cuid())
+  userId    String
+  startedAt DateTime
+  endedAt   DateTime?
+
+  user User @relation(fields: [userId], references: [id])
 }
 
 model Settings {
