@@ -14,6 +14,7 @@ DISCORD_CLIENT_ID=
 DISCORD_CLIENT_SECRET=
 DISCORD_REDIRECT_URI=http://localhost:3000/auth/callback
 JWT_SECRET=
+CLIENT_SECRET=
 ```
 
 The database URL must point to a **PostgreSQL** database, unless you modify the Prisma schema to work with whatever database you prefer.
