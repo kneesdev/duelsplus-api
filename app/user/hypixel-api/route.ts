@@ -14,8 +14,8 @@ export async function GET(req: NextRequest) {
             select: { hypixelApiKey: true },
         })
 
-        if (!user || !user.hypixelApiKey) {
-            return NextResponse.json({ error: "No Hypixel API key set" }, { status: 400 })
+        if (!user) {
+            return NextResponse.json({ error: "User not found" }, { status: 404 })
         }
 
         return NextResponse.json({ hypixelApiKey: user.hypixelApiKey })
