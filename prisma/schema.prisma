@@ -14,31 +14,55 @@ datasource db {
 }
 
 model User {
-  id            String      @id @default(cuid())
-  discordId     String      @unique
+  id            String    @id @default(cuid())
+  discordId     String    @unique
   username      String?
   ign           String?
   hypixelApiKey String?
   autoGGMessage String?
-  createdAt     DateTime    @default(now())
-  sessions      Session[]
-  dailyStats    DailyStat[]
+  createdAt     DateTime  @default(now())
+  settings      Settings?
+  stats         Stat[]
 }
 
-model Session {
-  id        String    @id @default(cuid())
+model Settings {
+  id           String  @id @default(cuid())
+  userId       String  @unique
+  pearlTimer   Boolean @default(false)
+  autoDodge    Boolean @default(false)
+  autoStats    Boolean @default(false)
+  qProtection  Boolean @default(false)
+  dodgeRequeue Boolean @default(false)
+  user         User    @relation(fields: [userId], references: [id])
+}
+
+model Stat {
+  id        String   @id @default(cuid())
   userId    String
-  startedAt DateTime
-  endedAt   DateTime?
-
-  user User @relation(fields: [userId], references: [id])
+  type      String // "daily", "weekly", "session"
+  data      Json
+  createdAt DateTime @default(now())
+  user      User     @relation(fields: [userId], references: [id])
 }
 
-model DailyStat {
-  id     String   @id @default(cuid())
-  userId String
-  date   DateTime
-  data   Json
+model Report {
+  id         String   @id @default(cuid())
+  reportedId String // discordId
+  reporterId String // discordId
+  reason     String?
+  status     String   @default("pending")
+  createdAt  DateTime @default(now())
+}
 
-  user User @relation(fields: [userId], references: [id])
+model Cheater {
+  id         String   @id @default(cuid())
+  discordId  String
+  verifiedAt DateTime @default(now())
+}
+
+model ProxyChatMessage {
+  id        String   @id @default(cuid())
+  authorId  String
+  content   String
+  createdAt DateTime @default(now())
 }
