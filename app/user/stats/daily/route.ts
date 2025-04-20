@@ -8,14 +8,10 @@ export async function GET(req: NextRequest) {
         return NextResponse.json({ error: "Unauthorized" }, { status: 401 })
     }
 
-    try {
-        const stats = await prisma.dailyStat.findMany({
-            where: { userId },
-            orderBy: { date: "desc" },
-        })
-
-        return NextResponse.json(stats)
-    } catch (error) {
-        return NextResponse.json({ error: "Failed to fetch daily stats" }, { status: 500 })
-    }
+    const stats = await prisma.stat.findMany({
+        where: { userId, type: "daily" },
+        orderBy: { createdAt: "desc" },
+        take: 1,
+    })
+    return NextResponse.json(stats[0] || {})
 }
