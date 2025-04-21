@@ -15,5 +15,9 @@ export async function GET(req: NextRequest) {
     }
 
     const user = await prisma.user.findUnique({ where: { discordId } })
+    if (!user) {
+        return NextResponse.json({ error: "User not found" }, { status: 404 })
+    }
+    
     return NextResponse.json(user)
 }
