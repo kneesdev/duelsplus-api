@@ -7,7 +7,8 @@ export async function GET(req: NextRequest) {
         return NextResponse.json({ error: "Unauthorized" }, { status: 401 })
     }
 
-    const { discordId } = await req.json()
+    const { searchParams } = new URL(req.url)
+    const discordId = searchParams.get("discordId")
 
     if (!discordId) {
         return NextResponse.json({ error: "Missing discordId" }, { status: 400 })
