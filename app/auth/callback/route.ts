@@ -41,8 +41,7 @@ export async function GET(req: NextRequest) {
 
     const token = jwt.sign(
         { sub: user.id },
-        process.env.JWT_SECRET!,
-        { expiresIn: "7d" }
+        process.env.JWT_SECRET!
     )
 
     return NextResponse.json({ token })
