@@ -4,14 +4,16 @@ import { isValidClientRequest } from "@/lib/auth"
 
 export async function GET(
     req: NextRequest,
-    { params }: { params: { reportId: string } }
+    { params }: { params: Promise<{ reportId: string }> }
 ) {
     if (!isValidClientRequest(req)) {
         return NextResponse.json({ error: "Unauthorized" }, { status: 401 })
     }
 
+    const { reportId } = await params
+
     const report = await prisma.report.findUnique({
-        where: { id: params.reportId },
+        where: { id: reportId },
     })
 
     if (!report) {
@@ -23,11 +25,13 @@ export async function GET(
 
 export async function POST(
     req: NextRequest,
-    { params }: { params: { reportId: string } }
+    { params }: { params: Promise<{ reportId: string }> }
 ) {
     if (!isValidClientRequest(req)) {
         return NextResponse.json({ error: "Unauthorized" }, { status: 401 })
     }
+
+    const { reportId } = await params
 
     const { status } = await req.json()
 
@@ -36,7 +40,7 @@ export async function POST(
     }
 
     const updated = await prisma.report.update({
-        where: { id: params.reportId },
+        where: { id: reportId },
         data: { status },
     })
 
