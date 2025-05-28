@@ -19,14 +19,15 @@ export async function POST(req: NextRequest) {
         },
     })
 
-    const status = existingReport ? "duplicate" : "pending"
+    if (existingReport) {
+        return NextResponse.json({ error: "Duplicate report" }, { status: 409 })
+    }
 
     const report = await prisma.report.create({
         data: {
             reportedId,
             reporterId: userId,
             reason,
-            status,
         },
     })
 
