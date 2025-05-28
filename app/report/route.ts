@@ -12,11 +12,10 @@ export async function POST(req: NextRequest) {
     if (!reportedId) {
         return NextResponse.json({ error: "Missing reportedId" }, { status: 400 })
     }
-    
+
     const existingReport = await prisma.report.findFirst({
         where: {
             reportedId,
-            reporterId: userId,
         },
     })
 
