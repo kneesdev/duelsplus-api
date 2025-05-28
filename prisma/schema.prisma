@@ -14,7 +14,7 @@ datasource db {
 }
 
 model User {
-  id            String    @id @default(cuid())
+  id            String    @id @default(uuid())
   discordId     String    @unique
   username      String?
   ign           String?
@@ -27,7 +27,7 @@ model User {
 }
 
 model Session {
-  id        String    @id @default(cuid())
+  id        String    @id @default(uuid())
   userId    String
   startedAt DateTime
   endedAt   DateTime?
@@ -36,7 +36,7 @@ model Session {
 }
 
 model Settings {
-  id           String  @id @default(cuid())
+  id           String  @id @default(uuid())
   userId       String  @unique
   pearlTimer   Boolean @default(false)
   autoDodge    Boolean @default(false)
@@ -47,7 +47,7 @@ model Settings {
 }
 
 model Stat {
-  id        String   @id @default(cuid())
+  id        String   @id @default(uuid())
   userId    String
   type      String // "daily", "weekly", "session"
   data      Json
@@ -56,7 +56,7 @@ model Stat {
 }
 
 model Report {
-  id         String   @id @default(cuid())
+  id         String   @id @default(uuid())
   reportedId String // discordId
   reporterId String // discordId
   reason     String?
@@ -65,13 +65,13 @@ model Report {
 }
 
 model Cheater {
-  id         String   @id @default(cuid())
+  id         String   @id @default(uuid())
   discordId  String
   verifiedAt DateTime @default(now())
 }
 
 model ProxyChatMessage {
-  id        String   @id @default(cuid())
+  id        String   @id @default(uuid())
   authorId  String
   content   String
   createdAt DateTime @default(now())
