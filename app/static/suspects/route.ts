@@ -6,6 +6,10 @@ export async function GET(req: NextRequest) {
         where: {
             status: "pending",
         },
+        select: {
+            reportedId: true,
+            reason: true,
+        },
     })
     return NextResponse.json(reports)
 }
