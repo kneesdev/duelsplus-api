@@ -19,6 +19,7 @@ model User {
   username      String?
   hypixelApiKey String?
   autoGGMessage String?
+  lastGamemode  String?
   createdAt     DateTime     @default(now())
   settings      Settings?
   isBanned      Boolean      @default(false)
