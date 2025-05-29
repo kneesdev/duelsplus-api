@@ -44,9 +44,14 @@ export async function GET(req: NextRequest) {
         },
     });
 
+    const activeSessionIndex = sessions.findIndex(s => !s.endedAt);
+
     return NextResponse.json({
         ...user,
         igns,
-        sessions,
+        sessions: sessions.map((session, index) => ({
+            ...session,
+            active: index === activeSessionIndex,
+        })),
     });
 }
