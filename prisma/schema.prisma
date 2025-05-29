@@ -17,11 +17,11 @@ model User {
   id            String    @id @default(uuid())
   discordId     String    @unique
   username      String?
-  ign           String?
   hypixelApiKey String?
   autoGGMessage String?
   createdAt     DateTime  @default(now())
   settings      Settings?
+  igns          IgnHistory[]
   sessions      Session[]
   stats         Stat[]
 }
@@ -44,6 +44,14 @@ model Settings {
   qProtection  Boolean @default(false)
   dodgeRequeue Boolean @default(false)
   user         User    @relation(fields: [userId], references: [id])
+}
+
+model IgnHistory {
+  id        String   @id @default(uuid())
+  ign       String
+  loggedAt  DateTime @default(now())
+  user      User     @relation(fields: [userId], references: [id])
+  userId    String
 }
 
 model Stat {
