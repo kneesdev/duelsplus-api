@@ -41,7 +41,8 @@ export async function GET(req: NextRequest) {
 
     const token = jwt.sign(
         { sub: user.id },
-        process.env.JWT_SECRET!
+        process.env.JWT_SECRET!,
+        { noTimestamp: true }
     )
 
     return NextResponse.json({ token })
