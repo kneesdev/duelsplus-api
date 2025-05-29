@@ -57,17 +57,11 @@ model Stat {
 
 model Report {
   id         String   @id @default(uuid())
-  reportedId String // discordId
-  reporterId String // discordId
+  reportedId String   // discordId
+  reporterId String?  // discordId
   reason     String?
   status     String   @default("pending")
   createdAt  DateTime @default(now())
-}
-
-model Cheater {
-  id         String   @id @default(uuid())
-  discordId  String
-  verifiedAt DateTime @default(now())
 }
 
 model ProxyChatMessage {
