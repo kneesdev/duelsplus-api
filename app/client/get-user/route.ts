@@ -32,9 +32,21 @@ export async function GET(req: NextRequest) {
             loggedAt: true,
         },
     });
-    
+
+    // include sessions
+    const sessions = await prisma.session.findMany({
+        where: { userId: user.id },
+        orderBy: { startedAt: "desc" }, // last started first
+        select: {
+            id: true,
+            startedAt: true,
+            endedAt: true,
+        },
+    });
+
     return NextResponse.json({
         ...user,
         igns,
+        sessions,
     });
 }
