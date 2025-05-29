@@ -36,13 +36,13 @@ export async function POST(req: NextRequest) {
         return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
     }
 
-    const { ign } = await req.json();
+    const { ign, skipMojangValidation } = await req.json();
     if (!ign || typeof ign !== "string") {
         return NextResponse.json({ error: "Invalid IGN" }, { status: 400 });
     }
 
     const existsOnMojang = await checkIgnExistsOnMojang(ign);
-    if (!existsOnMojang) {
+    if (!existsOnMojang && !skipMojangValidation) {
         return NextResponse.json({ error: "IGN does not exist on Mojang (are you on cracked?)" }, { status: 400 });
     }
 
