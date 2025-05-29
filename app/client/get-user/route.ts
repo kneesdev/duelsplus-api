@@ -14,10 +14,22 @@ export async function GET(req: NextRequest) {
         return NextResponse.json({ error: "Missing discordId" }, { status: 400 })
     }
 
-    const user = await prisma.user.findUnique({ where: { discordId } })
+    const user = await prisma.user.findUnique({
+        where: { discordId },
+        include: {
+            igns: { // include ign history
+                orderBy: { loggedAt: "desc" }, // last added first
+                select: {
+                    id: true,
+                    ign: true,
+                    loggedAt: true,
+                },
+            },
+        },
+    });
     if (!user) {
         return NextResponse.json({ error: "User not found" }, { status: 404 })
     }
-    
+
     return NextResponse.json(user)
 }
