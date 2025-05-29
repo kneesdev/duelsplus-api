@@ -9,5 +9,37 @@ export async function GET(req: NextRequest) {
     }
 
     const user = await prisma.user.findUnique({ where: { id: userId } })
-    return NextResponse.json(user)
+
+    // include ign history
+    const igns = await prisma.ignHistory.findMany({
+        where: { userId },
+        orderBy: { loggedAt: "desc" }, // last added first
+        select: {
+            id: true,
+            ign: true,
+            loggedAt: true,
+        },
+    });
+
+    // include sessions
+    const sessions = await prisma.session.findMany({
+        where: { userId },
+        orderBy: { startedAt: "desc" }, // last started first
+        select: {
+            id: true,
+            startedAt: true,
+            endedAt: true,
+        },
+    });
+
+    const activeSessionIndex = sessions.findIndex(s => !s.endedAt);
+
+    return NextResponse.json({
+        ...user,
+        igns,
+        sessions: sessions.map((session, index) => ({
+            ...session,
+            active: index === activeSessionIndex,
+        })),
+    });
 }
