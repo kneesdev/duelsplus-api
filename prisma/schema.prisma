@@ -23,6 +23,7 @@ model User {
   createdAt     DateTime     @default(now())
   settings      Settings?
   isBanned      Boolean      @default(false)
+  dodges        String[]     @default([])
   igns          IgnHistory[]
   sessions      Session[]
   stats         Stat[]
