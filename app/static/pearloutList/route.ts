@@ -3,23 +3,23 @@ import { getUserId } from "@/lib/auth"
 
 const pearloutList = {
     "Arena": "Pearlout",
-    "Backwood": "PearlUp",
+    "Backwood": "Pearl-Up",
     "Museum": "Blink",
     "Neon": "Pearlout",
     "Skyport": "None",
     "Highset": "None",
     "Reef": "Blink",
     "Fractal": "Pearlout",
-    "Fight Night": "PearlUp",
+    "Fight Night": "Pearl-Up",
     "Spikerock Bay": "Pearlout",
     "Christmas Town": "Pearlout",
     "Slalom Hills": "None",
     "Log Cabin": "None",
-    "Santa's Workshop": "PearlUp",
+    "Santa's Workshop": "Pearl-Up",
     "Fireside": "Pearlout",
     "Lunar": "Pearlout",
     "Zhulong": "Pearlout",
-    "Shan": "PearlUp",
+    "Shan": "Pearl-Up",
 }
 
 export async function GET(req: NextRequest) {
