@@ -33,7 +33,7 @@ export async function POST(req: NextRequest) {
     const body = await req.json()
     const hypixelApiKey = body.hypixelApiKey
 
-    if (!hypixelApiKey) {
+    if (hypixelApiKey === undefined) {
         return NextResponse.json({ error: "Hypixel API key is required" }, { status: 400 })
     }
 

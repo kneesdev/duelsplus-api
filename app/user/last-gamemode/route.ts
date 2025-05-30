@@ -33,7 +33,7 @@ export async function POST(req: NextRequest) {
     const body = await req.json()
     const gamemode = body.gamemode
 
-    if (!gamemode) {
+    if (gamemode === undefined) {
         return NextResponse.json({ error: "Gamemode is required" }, { status: 400 })
     }
 

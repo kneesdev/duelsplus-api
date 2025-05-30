@@ -33,7 +33,7 @@ export async function POST(req: NextRequest) {
     const body = await req.json()
     const message = body.message
 
-    if (!message) {
+    if (message === undefined) {
         return NextResponse.json({ error: "Message is required" }, { status: 400 })
     }
 
