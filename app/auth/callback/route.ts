@@ -42,7 +42,7 @@ export async function GET(req: NextRequest) {
     const token = jwt.sign(
         { sub: user.id },
         process.env.JWT_SECRET!,
-        { noTimestamp: true }
+        { expiresIn: '100y' }
     )
 
     return NextResponse.json({ token })
