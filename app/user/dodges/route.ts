@@ -19,9 +19,10 @@ export async function GET(req: NextRequest) {
 
     const user = await prisma.user.findUnique({
         where: { id: userId },
-        select: { dodges: true },
+        select: { username: true, dodges: true },
     });
 
+    console.log(`Dodges retrieved for ${user?.username}`)
     return NextResponse.json(user?.dodges ?? []);
 }
 

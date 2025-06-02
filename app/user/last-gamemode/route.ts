@@ -11,13 +11,14 @@ export async function GET(req: NextRequest) {
     try {
         const user = await prisma.user.findUnique({
             where: { id: userId },
-            select: { lastGamemode: true },
+            select: { username: true, lastGamemode: true },
         })
 
         if (!user) {
             return NextResponse.json({ error: "User not found" }, { status: 404 })
         }
 
+        console.log(`Last gamemode retrieved for ${user.username}: ${user.lastGamemode}`)
         return NextResponse.json({ lastGamemode: user.lastGamemode })
     } catch (error) {
         return NextResponse.json({ error: "Failed to fetch last gamemode" }, { status: 500 })

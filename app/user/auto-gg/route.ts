@@ -11,13 +11,14 @@ export async function GET(req: NextRequest) {
     try {
         const user = await prisma.user.findUnique({
             where: { id: userId },
-            select: { autoGGMessage: true },
+            select: { username: true, autoGGMessage: true },
         })
 
         if (!user) {
             return NextResponse.json({ error: "User not found" }, { status: 404 })
         }
 
+        console.log(`autoGGMessage retrieved for ${user.username}: ${user.autoGGMessage}`)
         return NextResponse.json({ autoGGMessage: user.autoGGMessage })
     } catch (error) {
         return NextResponse.json({ error: "Failed to fetch Auto GG message" }, { status: 500 })

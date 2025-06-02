@@ -11,13 +11,14 @@ export async function GET(req: NextRequest) {
     try {
         const user = await prisma.user.findUnique({
             where: { id: userId },
-            select: { hypixelApiKey: true },
+            select: { username: true, hypixelApiKey: true },
         })
 
         if (!user) {
             return NextResponse.json({ error: "User not found" }, { status: 404 })
         }
 
+        console.log(`Hypixel API key retrieved for ${user.username}`)
         return NextResponse.json({ hypixelApiKey: user.hypixelApiKey })
     } catch (error) {
         return NextResponse.json({ error: "Failed to fetch Hypixel API key" }, { status: 500 })
@@ -42,6 +43,7 @@ export async function POST(req: NextRequest) {
             where: { id: userId },
             data: { hypixelApiKey },
         })
+        console.log("Hypixel API key updated")
         return NextResponse.json({ message: "Hypixel API key updated successfully" })
     } catch (error) {
         return NextResponse.json({ error: "Failed to update Hypixel API key" }, { status: 500 })

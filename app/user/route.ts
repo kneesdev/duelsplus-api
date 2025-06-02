@@ -34,6 +34,15 @@ export async function GET(req: NextRequest) {
 
     const activeSessionIndex = sessions.findIndex(s => !s.endedAt);
 
+    console.log({
+        ...user,
+        igns,
+        sessions: sessions.map((session, index) => ({
+            ...session,
+            active: index === activeSessionIndex,
+        })),
+    })
+
     return NextResponse.json({
         ...user,
         igns,
