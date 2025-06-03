@@ -16,6 +16,7 @@ export async function POST(req: NextRequest) {
     const existingReport = await prisma.report.findFirst({
         where: {
             reportedId,
+            status: "approved", // only consider a report duplicate if it was approved before
         },
     })
 
