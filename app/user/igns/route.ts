@@ -56,19 +56,33 @@ export async function POST(req: NextRequest) {
         },
     });
 
-    // delete ign entry
+    let wins = 0;
+    let losses = 0;
+
     if (existingIgn) {
+        // preserve stats in-memory so they aren't wiped
+        const stats = await prisma.ignHistory.findUnique({
+            where: { id: existingIgn.id },
+            select: { wins: true, losses: true },
+        });
+
+        wins = stats?.wins || 0;
+        losses = stats?.losses || 0;
+
+        // delete ign entry
         await prisma.ignHistory.delete({
             where: { id: existingIgn.id },
         });
     }
 
     // re-create ign entry
-    // with updated loggedAt
+    // with updated loggedAt and preserved stats
     const newIgn = await prisma.ignHistory.create({
         data: {
             ign,
             userId,
+            wins,
+            losses,
         },
     });
 

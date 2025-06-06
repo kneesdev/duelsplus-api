@@ -29,6 +29,7 @@ model User {
   stats         Stat[]
 
   //stats
+  //! likely deprecated
   wins          Int          @default(0)
   losses        Int          @default(0)
 }
@@ -64,6 +65,10 @@ model IgnHistory {
   loggedAt DateTime @default(now())
   user     User     @relation(fields: [userId], references: [id])
   userId   String
+
+  //stats
+  wins          Int          @default(0)
+  losses        Int          @default(0)
 }
 
 //! start of deprecated
