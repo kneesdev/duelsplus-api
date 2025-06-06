@@ -2,10 +2,12 @@ import { NextRequest, NextResponse } from "next/server"
 import prisma from "@/lib/prisma"
 import { getUserId } from "@/lib/auth"
 
-export async function GET(_: NextRequest, { params }: { params: { ign: string } }) {
-    const { ign } = params
+export async function GET(req: NextRequest, props: { params: Promise<{ ign: string }> }) {
+    const params = await props.params;
 
     try {
+        const { ign } = params;
+
         const entry = await prisma.ignHistory.findFirst({
             where: { ign },
             select: { wins: true, losses: true },
@@ -34,13 +36,13 @@ export async function GET(_: NextRequest, { params }: { params: { ign: string } 
     }
 }
 
-export async function POST(req: NextRequest, { params }: { params: { ign: string } }) {
+export async function POST(req: NextRequest, props: { params: Promise<{ ign: string }> }) {
     const userId = getUserId(req)
     if (!userId) {
         return NextResponse.json({ error: "Unauthorized" }, { status: 401 })
     }
 
-    const { ign } = params
+    const params = await props.params;
     let body
 
     try {
@@ -56,6 +58,8 @@ export async function POST(req: NextRequest, { params }: { params: { ign: string
     }
 
     try {
+        const { ign } = params;
+        
         const entry = await prisma.ignHistory.findFirst({
             where: { ign, userId },
             orderBy: { loggedAt: "desc" }, // latest use of ign by user
