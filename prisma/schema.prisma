@@ -27,6 +27,10 @@ model User {
   igns          IgnHistory[]
   sessions      Session[]
   stats         Stat[]
+
+  //stats
+  wins          Int          @default(0)
+  losses        Int          @default(0)
 }
 
 model Session {
@@ -34,6 +38,11 @@ model Session {
   userId    String
   startedAt DateTime
   endedAt   DateTime?
+
+  //stats
+  //! likely unused
+  wins      Int       @default(0)
+  losses    Int       @default(0)
 
   user User @relation(fields: [userId], references: [id])
 }
@@ -57,6 +66,7 @@ model IgnHistory {
   userId   String
 }
 
+//! start of deprecated
 model Stat {
   id        String   @id @default(uuid())
   userId    String
@@ -65,6 +75,7 @@ model Stat {
   createdAt DateTime @default(now())
   user      User     @relation(fields: [userId], references: [id])
 }
+//! end of deprecated
 
 model Report {
   id         String   @id @default(uuid())
