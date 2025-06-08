@@ -1,8 +1,18 @@
 import { NextRequest, NextResponse } from "next/server"
 import prisma from "@/lib/prisma"
 
+type GlobalStats = {
+  globalStats: {
+    totalWins: number
+    totalLosses: number
+    totalGames: number
+    winLossRatio: number
+    winRate: number
+  }
+}
+
 // in-memory cache cause we don't got redis
-let cachedStats: any = null
+let cachedStats: GlobalStats | null = null
 let lastFetched = 0
 const CACHE_DURATION_MS = 60 * 60 * 1000 // 1h
 
