@@ -14,7 +14,7 @@ type GlobalStats = {
 // in-memory cache cause we don't got redis
 let cachedStats: GlobalStats | null = null
 let lastFetched = 0
-const CACHE_DURATION_MS = 60 * 60 * 1000 // 1h
+const CACHE_DURATION_MS = 10 * 60 * 1000 // 10m
 
 export async function GET(_req: NextRequest) {
     const now = Date.now()
