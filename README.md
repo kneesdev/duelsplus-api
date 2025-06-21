@@ -1,3 +1,6 @@
+> [!WARNING]  
+> This repository is deprecated, and the API has moved to [GitLab](https://gitlab.com/kneesdev/duelsplus-api)
+
 # duelsplus-api
 Simple but blazing fast backend for **Duels+** made by [lee*](https://github.com/kneesdev) with [Next.js](https://nextjs.org). The API is still a work in progress, just the bare bones for now.
 ###### *the API was fully developed by [lee (kneesdev)](https://github.com/kneesdev)
