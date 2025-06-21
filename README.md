@@ -1,6 +1,6 @@
 # duelsplus-api
-Simple but blazing fast backend for **Duels+** by [Venxm*](https://github.com/venxmised) made with [Next.js](https://nextjs.org). The API is still a work in progress, just the bare bones for now.
-###### *the API was developed by me, for Venxm's project
+Simple but blazing fast backend for **Duels+** made by [lee*](https://github.com/kneesdev) with [Next.js](https://nextjs.org). The API is still a work in progress, just the bare bones for now.
+###### *the API was fully developed by [lee (kneesdev)](https://github.com/kneesdev)
 
 > [!NOTE]  
 > If you were to create an API like this one, **please** avoid using Next.js -- there's alternatives such as Express.js that fit this use case better
